@@ -1,0 +1,539 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %% 
+%% LaTeX to get the ``??'' replaced with the number of the last page  %% 
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+% \usepackage[paper=letterpaper,
+%             %includefoot, % Uncomment to put page number above margin
+%             marginparwidth=1.2in,     % Length of section titles
+%             marginparsep=.05in,       % Space between titles and text
+%             margin=1in,               % 1 inch margins
+%             includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+\usepackage[paper=a4paper,
+           %includefoot, % Uncomment to put page number above margin
+           marginparwidth=30.5mm,    % Length of section titles
+           marginparsep=1.5mm,       % Space between titles and text
+           margin=25mm,              % 25mm margins
+           includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+%% This gives us fun enumeration environments. compactenum will be nice.
+\usepackage{paralist}
+
+\usepackage[T1]{fontenc}
+\usepackage[medfamily,opticals,mathlf,minionint,loosequotes,mathtabular]{MinionPro}
+\usepackage[scaled=.9]{blgothic}
+\usepackage{microtype}
+
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+%
+% Usage: \makeheading{name}
+%
+% Place at top of document. It should be the first thing.
+\newcommand{\makeheading}[1]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+                {\large \bfseries #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{.5pt}%
+         \end{minipage}}
+
+% The section headings
+%
+% Usage: \section{section name}
+%
+% Follow this section IMMEDIATELY with the first line of the section
+% text. Do not put whitespace in between. That is, do this:
+%
+%       \section{My Information}
+%       Here is my information.
+%
+% and NOT this:
+%
+%       \section{My Information}
+%
+%       Here is my information.
+%
+% Otherwise the top of the section header will not line up with the top
+% of the section. Of course, using a single comment character (%) on
+% empty lines allows for the function of the first example with the
+% readability of the second example.
+\renewcommand{\section}[2]%
+        {\pagebreak[2]\vspace{1.3\baselineskip}%
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \hspace{0in}%
+         \marginpar{
+         \raggedright \scshape #1}#2}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{enumerate}[#1]}{\end{enumerate}%
+         \vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+        {\begin{compactenum}[#1]}{\end{compactenum}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\makeheading{{\LARGE Arnar~Birgisson}
+  \hspace{.2cm}
+  {\LARGE\sc curriculum~vitae}
+  \hspace{\fill}
+  {\normalsize\textmd{updated \today}}}
+
+\section{contact information}
+%
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table.
+%
+% ALSO: \rcollength is the width of the right column of the table 
+%       (adjust it to your liking; default is 1.85in).
+%
+\newlength{\rcollength}\setlength{\rcollength}{1.85in}%
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
+\href{http://www.chalmers.se/}%
+     {Department of Computer Science and Engineering} 
+                           & \textit{Phone:} (+46) 31 772 1062 \\
+Chalmers University of Technology
+                           & \textit{Mobile:} (+46) 72 040 1784 \\
+Rännvägen 6B            & \textit{E-mail:}
+\href{mailto:arnarb@chalmers.se}{arnarb@chalmers.se},\\
+41296 Göteborg           & \hspace{29pt}
+\href{mailto:arnarbi@gmail.com}{arnarbi@gmail.com}\\
+SWEDEN & \hspace{29pt} \href{http://www.hvergi.net/arnar/}{www.hvergi.net/arnar}\\
+\end{tabular}
+
+
+\section{citizenship}
+%
+Icelandic
+
+% \section{Research Interests}
+% %
+% Control theory, communication theory, behavioral ecology, cooperation
+% theory, engineering education 
+
+\section{education}
+%
+\href{http://www.chalmers.se/}{\textbf{Chalmers University of Technology}}, 
+Göteborg, Sweden
+\begin{outerlist}
+
+\item[] Ph.D., Computer Science, ongoing since August 2009
+        \begin{innerlist}
+        \item Supervisor: 
+            \href{http://www.math.chalmers.se/~andrei/}
+                   {Andrei Sabelfeld}
+        \item Areas of Study: Language based security, type based information flow analysis,
+            application of information flow analysis to web security
+        \end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\href{http://www.ru.is/}{\textbf{Reykjavik University}}, 
+Reykjavik, Iceland
+\begin{outerlist}
+
+\item[] M.Sc., Computer Science, June 2009
+        \begin{innerlist}
+        \item Thesis Topic: \href{http://www.hvergi.net/arnar/projects/msc-thesis}{Topics in Structural Operational Semantics}
+        \item Supervisor: 
+              \href{http://www.ru.is/faculty/luca/}
+                   {Luca Aceto}
+        \item Areas of Study: Process Algebra, Operational Semantics
+        \end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\href{http://www.hi.is/}{\textbf{University of Iceland}}, 
+Reykjavik, Iceland
+\begin{outerlist}
+
+\item[] B.Sc., Mathematics, June 2004
+        \begin{innerlist}
+        \item Emphasis on Computer Science
+        \end{innerlist}
+
+\end{outerlist}
+
+% \section{Awards and honours} 
+% %
+% \href{http://www.nsf.gov/}{National Science Foundation}
+% \begin{innerlist}
+% \item \href{http://www.nsfgk12.org/}{GK-12 Fellowship}, 2006
+% \item \href{http://www.nsf.gov/grfp}
+%            {Graduate Research Fellowship} Honorable Mention, 2005
+% \end{innerlist}
+
+% \blankline
+
+% \href{http://www.osu.edu}{The Ohio State University}
+% \begin{innerlist}
+% \item \href{http://www.gradsch.osu.edu/Content.aspx?Content=44&itemid=2}
+%            {Dean's Distinguished University Fellowship}, 2004
+% \item Electrical and Computer Engineering Bradshaw Scholarship,
+%         2002--2004
+% \item Electrical and Computer Engineering Shafstall Scholarship,
+%         2001--2003
+% \item University Scholarship, 1999--2003
+% \end{innerlist}
+
+\section{academic experience}
+\href{http://www.chalmers.se}{\textbf{Chalmers University of Technology}}, 
+Göteborg, Sweden
+\begin{outerlist}
+\item[] \textit{Graduate Student}%
+    \hfill \textbf{August 2009 to present}
+\begin{innerlist}
+    \item Participated in the Marktoberdorf Summer School of
+    Logics and Languages for Reliability and Security, Germany, Agust 2009.
+    \item Participated in the FOSAD Summer School in Bertinoro, Italy, September 2009.
+    \end{innerlist}
+\item[] \textit{Teaching Assistant}%
+            \hfill \textbf{November 2009 to present}
+\begin{innerlist}
+    \item {\em Data Structures}, administered weekly exercise lessons, graded
+        and supervised lab work.
+    \item {\em Programming Languages}, graded and supervised lab work.
+    \end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\href{http://www.ru.is}{\textbf{Reykjavik University}}, 
+Reykjavik, Iceland
+\begin{outerlist}
+\item[] \textit{Graduate Student}%
+        \hfill \textbf{September 2007 to June 2009}
+\begin{innerlist}
+\item Research assistantship from January 2008
+\item Visiting Technical University of Eindhoven (TU/e) for two months
+    during fall semester of 2008 for research related to M.Sc. thesis.
+\end{innerlist}
+
+\item[] \textit{Teaching Assistant}%
+        \hfill \textbf{January 2008 to April 2009}
+\begin{innerlist}
+\item {\em Algorithm Design and Analysis}, weekly grading of assignments
+  and preparation and presentation of solutions in class.
+\item {\em Computer Science for Engineers II}, administering daily lab sessions
+  in a three-week intensive course on programming, assisted with creation
+  of excercises and exams.
+\item {\em Introduction to Artificial Intelligence}, weekly lab sessions,
+  creation of exercises, assistance with programming projects and grading.
+\end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\href{http://www.hi.is}{\textbf{University of Iceland}}, 
+Reykjavik, Iceland
+\begin{outerlist}
+\item[] \textit{Undergraduate Student}%
+        \hfill \textbf{September 2001 to June 2004}
+\end{outerlist}
+
+\section{publications}
+%
+\textbf{Conference and workshop papers}
+\begin{outerlist}
+\item Arnar Birgisson, Mohan Dhawan, Úlfar Erlingsson,
+Vinod Ganapathy, Liviu Iftode.
+{\em Enforcing Authorization Policies using Transactional Memory Inspection}.
+ACM Conference on Computer and Communications Security (CCS 2008),~pp.~223--234.
+2008.
+%
+\item Luca Aceto, Arnar Birgisson, Anna Ingolfsdottir, MohammadReza Mousavi and Michel Reniers.
+{\em Rule Formats for Determinism and Idempotency.}  
+LNCS proceedings of Fundamentals of Software Engineering 2009.
+%
+\item Arnar Birgisson and Úlfar Erlingsson.
+{\em An Implementation and Semantics for Transactional Memory Introspection in Haskell.}
+ACM SIGPLAN Fourth Workshop on Programming Languages and Analysis for Security (PLAS 2009).
+\end{outerlist}
+
+\blankline
+
+\textbf{Technical reports}
+\begin{outerlist}
+\item Arnar Birgisson, Mohan Dhawan, Úlfar Erlingsson,
+Vinod Ganapathy, Liviu Iftode.
+{\em Enforcing Authorization Policies using Transactional Memory Inspection}.
+Technical report, Rutgers University, Dept. of C.S. USA. DCS-TR-$628$.
+{\em (Superseded by CCS 2008 conference paper.)}
+%
+\item Arnar Birgisson, Úlfar Erlingsson.
+{\em An Implementation and Semantics for Transactional Memory Introspection in Haskell}.
+Technical report, Reykjavik University, School of Computer Science, Iceland. RUTR-CS$08007$.
+
+\end{outerlist}
+
+\section{professional experience}
+%
+\href{http://www.kvos.is/}{\textbf{Kvos}} (Oddi Printing Ltd. before
+company restructure in 2006), 
+Reykjavik, Iceland
+\begin{outerlist}
+
+\item[] \textit{IT Systems Analyst}%
+        \hfill \textbf{June 2004 to December 2007}
+\begin{innerlist}
+\item Designed and implemented specialised in-house web-based IT systems
+  for billing and production planning, human resources among others.
+\item Implemented and maintained IT infrastructure for web-based
+  information systems.
+\item Design and maintenance on several mission-critical databases.
+\item Partly responsible for design and maintenance of networking
+  and telephone infrastructure.
+\item Technical consultant on automated layout and desktop publishing.
+  Helped with various jobs dealing with computer-driven layout.
+\end{innerlist}
+
+\item[] \textit{Part-time IT systems designer and programmer}%
+        \hfill \textbf{May 2000 to June 2004}
+\begin{innerlist}
+\item Designed and implemented web-based information systems for
+  production planning and management, billing, website content
+  management.
+\item Implemented and maintained Linux based infrastructure for 
+  several web-based information systems.
+\end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\href{http://www.visir.is/}{\textbf{visir.is}}, Reykjavik, Iceland
+\begin{outerlist}
+\item[] \textit{Web application programmer}%
+        \hfill \textbf{July 1998 to April 2000}
+\begin{innerlist}
+\item Custom web development for high-volume Icelandic news website.
+    Included database design and maintenance.
+\end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\textbf{MotorIs}, 
+Reykjavik, Iceland
+\begin{outerlist}
+
+\item[] \textit{Production assistant}%
+        \hfill \textbf{summers of 1996--1998}
+\begin{innerlist}
+\item Various jobs in producing a weekly 30 minute show on Icelandic
+  motor sport aired internationally. Jobs included cameraman, non-linear
+  editing, sound mixing and graphical design.
+\item Assisting in administration of rally and off-road tournaments,
+  including implementing simple systems for score keeping, public
+  announcements etc.
+\end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\textbf{Various}, Eskifjörður, Iceland \hfill \textbf{summers before 1996}
+\begin{outerlist}
+\item[] Various summer jobs as a teenager in fish factories, public service and commerce.
+\end{outerlist}
+
+
+
+% \section{technical skills} 
+% %
+% Programming (advanced): Python, C, C++, Java, SQL. Good generic
+% and cross-language programming experience, ability to work with
+% diverse environments.
+
+% \blankline
+
+% Programming (intermediate): Pascal, Perl, PHP, Scheme, Haskell, PostScript,
+% UNIX shell scripting and others. 
+
+% \blankline
+
+% Operating Systems: Microsoft Windows XP/2000, Apple OS X, Linux,
+%         HP Unix, and other UNIX variants
+
+\section{personal research statement}
+%
+Already, many critical parts of modern society rest on top of several layers
+of computer software and hardware, and things will only become more complex
+in the future. As with other engineering efforts, I believe that such systems
+cannot meet the requirements of reliability and maintainability unless they are
+built on solid, well specified and sound foundations.
+
+To address this, and preferably further the state of the art, my research interests
+lie in the various topics surrounding programming languages and language based
+security. Programming languages
+provide system designers with the necessary high-level abstractions to realize their
+designs, and as such, programming languages and the related technologies need to be
+all things to everyone. They must be expressive enough to allow the designer to
+create a complete and maintainable system. They must be simple, so that the systems
+they express can be understood and maintained. They must be built on solid foundations
+which provide assurances of correctness, in many cases through mathematical verification.
+All of this is important in the context of security, where language technology can
+significantly contribute to the task of designing and implementing safe systems.
+
+% I believe at the moment, functional and declarative programming languages deserve to
+% be continued to be studied in detail, as they fit these requirements better in many
+% ways that imperative languages cannot. I also believe that the use of formal specifications
+% of their semantics (to the extent possible) is beneficial, both to build verifiable
+% systems as well as providing language designers important insight into their languages.
+
+\blankline
+
+The main purpose of programming languages is to provide a mapping from a high-level
+specification of a system to, to a lower level. The lower level can be abstract,
+mathematical models of execution - or it can be hardware or even a lower layer of
+software (actually the most common case). I find great joy in studying such mappings,
+designing new ones and finding ways to improve them. 
+A particularly useful application of such research is in security. Security issues
+cross-cut the abstraction levels of systems, i.e. a system that appears safe on one
+abstraction level may very well not be on another one. By building in helpful
+features in the mapping between layers, namely programming languages, it is possible
+to make it significantly easier to write verifiably safe systems.
+% This particular joy sparks
+% my interest in a wide range of topics, from low level compilation and interpretation
+% of languages, to high level and abstract specifications of language semantics.
+
+My experience and interest in the practicalities of programming and computer
+architecture fuses rather well with my fascination for the theoretical aspect.
+By combining these two, I'd like to gain even deeper understanding of the current
+state of the art to be able to find ways to advance it.
+
+\blankline
+
+% To be more specific, my current research interest lies across process algebra,
+% structural operational semantics and functional programming (preferably lazy,
+% pure and strongly typed, e.g. Haskell). I am interested in using these areas
+% of study to work on language based security, modelling and verification and efficient
+% and correct execution (dynamic or compiled).
+
+% \blankline
+
+% For a further description of my recent and current projects, as well as my
+% qualifications for job offerings, please refer to the cover letter included
+% in my application.
+
+\section{references}
+    For letters of references, please contact any of the following persons.
+    \begin{itemize}
+        \item Andrei Sabelfeld \\
+            Associate Professor, Chalmers University of Technology \\
+            {\tt http://www.math.chalmers.se/\string~andrei/} \\
+            {\tt andrei@chalmers.se}
+        \item Luca Aceto \\
+            Professor, Reykjavik University \\
+            {\tt http://www.ru.is/faculty/luca/} \\
+            {\tt luca@ru.is}
+        \item Úlfar Erlingsson \\
+            Associate Professor, Reykjavik University and Researcher, Microsoft Research \\
+            {\tt http://www.ru.is/faculty/ulfar/} \\
+            {\tt ulfar@ru.is}
+        \item MohammadReza Mousavi\\
+            Assistant Professor, Eindhoven University of Technology \\
+            {\tt http://www.win.tue.nl/\string~mousavi/} \\
+            {\tt m.r.mousavi@tue.nl}
+    \end{itemize}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
