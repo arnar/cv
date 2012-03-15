@@ -20,6 +20,8 @@
 % Don't like 10pt? Try 11pt or 12pt
 \documentclass[10pt]{article}
 
+\usepackage{ifthen}
+
 % This is a helpful package that puts math inside length specifications
 \usepackage{calc}
 
@@ -51,20 +53,20 @@
 %
 
 %% Use these lines for letter-sized paper
-% \usepackage[paper=letterpaper,
-%             %includefoot, % Uncomment to put page number above margin
-%             marginparwidth=1.2in,     % Length of section titles
-%             marginparsep=.05in,       % Space between titles and text
-%             margin=1in,               % 1 inch margins
-%             includemp]{geometry}
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.2in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1in,               % 1 inch margins
+            includemp]{geometry}
 
 %% Use these lines for A4-sized paper
-\usepackage[paper=a4paper,
-           %includefoot, % Uncomment to put page number above margin
-           marginparwidth=30.5mm,    % Length of section titles
-           marginparsep=1.5mm,       % Space between titles and text
-           margin=25mm,              % 25mm margins
-           includemp]{geometry}
+%\usepackage[paper=a4paper,
+%           %includefoot, % Uncomment to put page number above margin
+%           marginparwidth=30.5mm,    % Length of section titles
+%           marginparsep=1.5mm,       % Space between titles and text
+%           margin=25mm,              % 25mm margins
+%           includemp]{geometry}
 
 %% More layout: Get rid of indenting throughout entire document
 \setlength{\parindent}{0in}
@@ -88,7 +90,7 @@
 %
 \usepackage{fancyhdr,lastpage}
 \pagestyle{fancy}
-%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\pagestyle{empty}      % Uncomment this to get rid of page numbers
 \fancyhf{}\renewcommand{\headrulewidth}{0pt}
 \fancyfootoffset{\marginparsep+\marginparwidth}
 \newlength{\footpageshift}
@@ -102,7 +104,7 @@
 
 % Finally, give us PDF bookmarks
 \usepackage{color,hyperref}
-\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.0}
 \hypersetup{colorlinks,breaklinks,
             linkcolor=darkblue,urlcolor=darkblue,
             anchorcolor=darkblue,citecolor=darkblue}
@@ -189,7 +191,7 @@
 \begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
 \href{http://www.chalmers.se/}%
      {Department of Computer Science and Engineering} 
-                           & \textit{Phone:} (+46) 31 772 1062 \\
+                           & \textit{Phone:} (+46) 31 772 1061 \\
 Chalmers University of Technology
                            & \textit{Mobile:} (+46) 72 040 1784 \\
 Rännvägen 6B            & \textit{E-mail:}
@@ -200,9 +202,14 @@ SWEDEN & \hspace{29pt} \href{http://www.hvergi.net/arnar/}{www.hvergi.net/arnar}
 \end{tabular}
 
 
-\section{citizenship}
+%\section{citizenship}
 %
-Icelandic
+%Icelandic
+
+\section{objective}
+To extend my research skills and build research contacts through
+doing research in a highly innovative U.S.~technology company
+doing research in information security.
 
 % \section{Research Interests}
 % %
@@ -229,31 +236,34 @@ Göteborg, Sweden
 
 \href{http://www.ru.is/}{\textbf{Reykjavik University}}, 
 Reykjavik, Iceland
-\begin{outerlist}
+\hfill{\bf M.Sc., Computer Science, June 2009}
+%\begin{outerlist}
 
-\item[] M.Sc., Computer Science, June 2009
-        \begin{innerlist}
-        \item Thesis Topic: \href{http://www.hvergi.net/arnar/projects/msc-thesis}{Topics in Structural Operational Semantics}
-        \item Supervisor: 
-              \href{http://www.ru.is/faculty/luca/}
-                   {Luca Aceto}
-        \item Areas of Study: Process Algebra, Operational Semantics
-        \end{innerlist}
-\end{outerlist}
+%\item[] M.Sc., Computer Science, June 2009
+        %\begin{innerlist}
+        %\item Thesis Topic: \href{http://www.hvergi.net/arnar/projects/msc-thesis}{Topics in Structural Operational Semantics}
+        %\item Supervisor: 
+        %      \href{http://www.ru.is/faculty/luca/}
+        %           {Luca Aceto}
+        %\item Areas of Study: Process Algebra, Operational Semantics
+        %\end{innerlist}
+%\end{outerlist}
 
 \blankline
 
 \href{http://www.hi.is/}{\textbf{University of Iceland}}, 
 Reykjavik, Iceland
-\begin{outerlist}
+\hfill{\bf B.Sc., Mathematics, June 2004}
+%\begin{outerlist}
 
-\item[] B.Sc., Mathematics, June 2004
-        \begin{innerlist}
-        \item Emphasis on Computer Science
-        \end{innerlist}
+%\item[] B.Sc., Mathematics, June 2004
+        %\begin{innerlist}
+        %\item Emphasis on Computer Science
+        %\end{innerlist}
 
-\end{outerlist}
+%\end{outerlist}
 
+\if 0
 
 \section{academic experience}
 \href{http://www.chalmers.se}{\textbf{Chalmers University of Technology}}, 
@@ -311,12 +321,17 @@ Reykjavik, Iceland
         \hfill \textbf{September 2001 to June 2004}
 \end{outerlist}
 
+\fi
+
 \section{awards and honours} 
 Recipient of the \href{http://research.google.com/university/relations/fellowship_recipients.html}{Google European Doctoral Fellowship in Computer Security}, 2010.
 \\[.5em]
 Recipient of \href{http://www.vi.is/um-vi/frettir/nr/998/}{Icelandic Chamber of Commerce Scholarship for Higher Education in Information Technology}, 2010.
 \\[.5em]
 Recipient of scholarship from the Icelandic Research Fund for Graduate Students, 2008.
+
+\if 0
+
 \section{publications}
 %
 \textbf{Conference and workshop papers}
@@ -382,6 +397,7 @@ Science of Computer Programming. Guest editors Farhad Arbab and Marjan Sirjani. 
 %Technical report, Reykjavik University, School of Computer Science, Iceland. RUTR-CS$08007$.
 %
 %\end{outerlist}
+\fi
 
 \section{professional experience}
 %
@@ -404,66 +420,78 @@ Reykjavik, Iceland
 \item[] \textit{IT Systems Analyst}%
         \hfill \textbf{June 2004 to December 2007}
 \begin{innerlist}
-\item Designed and implemented specialised in-house web-based IT systems
-  for billing and production planning, human resources among others.
-\item Implemented and maintained IT infrastructure for web-based
-  information systems.
-\item Design and maintenance on several mission-critical databases.
-\item Partly responsible for design and maintenance of networking
-  and telephone infrastructure.
-\item Technical consultant on automated layout and desktop publishing.
-  Helped with various jobs dealing with computer-driven layout.
+\item Design, implementation and maintenance of both in-house and customer
+    facing information systems, and their supporting infrastructure.
+%\item Designed and implemented specialised in-house web-based IT systems
+%  for billing and production planning, human resources among others.
+%\item Implemented and maintained IT infrastructure for web-based
+%  information systems.
+%\item Design and maintenance on several mission-critical databases.
+%\item Partly responsible for design and maintenance of networking
+%  and telephone infrastructure.
+%\item Technical consultant on automated layout and desktop publishing.
+%  Helped with various jobs dealing with computer-driven layout.
 \end{innerlist}
 
 \item[] \textit{Part-time IT systems designer and programmer}%
         \hfill \textbf{May 2000 to June 2004}
-\begin{innerlist}
-\item Designed and implemented web-based information systems for
-  production planning and management, billing, website content
-  management.
-\item Implemented and maintained Linux based infrastructure for 
-  several web-based information systems.
-\end{innerlist}
+%\begin{innerlist}
+%\item Designed and implemented web-based information systems for
+%  production planning and management, billing, website content
+%  management.
+%\item Implemented and maintained Linux based infrastructure for 
+%  several web-based information systems.
+%\end{innerlist}
 \end{outerlist}
 
 \blankline
 
-\href{http://www.visir.is/}{\textbf{visir.is}}, Reykjavik, Iceland
-\begin{outerlist}
-\item[] \textit{Web application programmer}%
+\href{http://www.visir.is/}{\textbf{visir.is}}, Reykjavik, Iceland -- \textit{Web application programmer}
         \hfill \textbf{July 1998 to April 2000}
-\begin{innerlist}
-\item Custom web development for high-volume Icelandic news website.
-    Included database design and maintenance.
-\end{innerlist}
-\end{outerlist}
+%\begin{outerlist}
+%\item[] \textit{Web application programmer}%
+%        \hfill \textbf{July 1998 to April 2000}
+%\begin{innerlist}
+%\item Custom web development for high-volume Icelandic news website.
+%    Included database design and maintenance.
+%\end{innerlist}
+%\end{outerlist}
 
 \blankline
 
 \textbf{MotorIs}, 
-Reykjavik, Iceland
-\begin{outerlist}
-
-\item[] \textit{Production assistant}%
+Reykjavik, Iceland -- \textit{Production assistant}
         \hfill \textbf{summers of 1996--1998}
-\begin{innerlist}
-\item Various jobs in producing a weekly 30 minute show on Icelandic
-  motor sport aired internationally. Jobs included cameraman, non-linear
-  editing, sound mixing and graphical design.
-\item Assisting in administration of rally and off-road tournaments,
-  including implementing simple systems for score keeping, public
-  announcements etc.
-\end{innerlist}
-\end{outerlist}
+%\begin{outerlist}
 
-\blankline
+%\item[] \textit{Production assistant}%
+%        \hfill \textbf{summers of 1996--1998}
+%\begin{innerlist}
+%\item Various jobs in producing a weekly 30 minute show on Icelandic
+%  motor sport aired internationally. Jobs included cameraman, non-linear
+%  editing, sound mixing and graphical design.
+%\item Assisting in administration of rally and off-road tournaments,
+%  including implementing simple systems for score keeping, public
+%  announcements etc.
+%\end{innerlist}
+%\end{outerlist}
 
-\textbf{Various}, Eskifjörður, Iceland \hfill \textbf{summers before 1996}
-\begin{outerlist}
-\item[] Various summer jobs as a teenager in fish factories, public service and commerce.
-\end{outerlist}
+%\blankline
+
+%\textbf{Various}, Eskifjörður, Iceland \hfill \textbf{summers before 1996}
+%\begin{outerlist}
+%\item[] Various summer jobs as a teenager in fish factories, public service and commerce.
+%\end{outerlist}
 
 
+\section{skills}
+Languages: Icelandic (native); English, Swedish (fluent); Danish, German (basic)
+\\[6pt]
+Technical: Advanced programming, programming language design and analysis, security
+analysis. Theoretical foundations of computing and program semantics. Discrete
+mathematics, logic, algebra. Conducting research (see website for publications).
+\\[6pt]
+Interests: Sailing, photography, hiking, skiing
 
 % \section{technical skills} 
 % %
@@ -480,6 +508,8 @@ Reykjavik, Iceland
 
 % Operating Systems: Microsoft Windows XP/2000, Apple OS X, Linux,
 %         HP Unix, and other UNIX variants
+
+\if 0
 
 \section{personal research statement}
 %
@@ -562,6 +592,9 @@ state of the art to be able to find ways to advance it.
             %{\tt http://www.win.tue.nl/\string~mousavi/} \\
             %{\tt m.r.mousavi@tue.nl}
     \end{itemize}
+
+\fi
+
 \end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
